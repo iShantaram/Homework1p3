@@ -1,3 +1,6 @@
+import java.sql.Time;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 public class Car {
@@ -9,17 +12,26 @@ public class Car {
     private final String productionCountry;
 
     public Car(String brand, String model, double engineVolume, String color, int productionYear, String productionCountry) {
-        this.brand = brand;
-        this.model = model;
-        this.engineVolume = engineVolume;
-        this.color = color;
-        this.productionYear = productionYear;
-        this.productionCountry = productionCountry;
+    if (brand == null || brand.isEmpty()) this.brand = "Unknown brand";
+    else this.brand = brand;
+    if (model == null || model.isEmpty()) this.model = "Unknown model";
+    else this.model = model;
+
+    this.engineVolume = Math.abs(engineVolume);
+
+    if (color == null || color.isEmpty()) this.color = "Unknown color";
+    else this.color = color;
+
+    if (productionYear > LocalDate.now().getYear()) this.productionYear = LocalDate.now().getYear();
+    else this.productionYear = Math.max(productionYear, 2000);
+
+    if (productionCountry == null || productionCountry.isEmpty()) this.productionCountry = "Unknown country";
+    else this.productionCountry = productionCountry;
     }
 
     @Override
     public String toString() {
-        return "Car{ " + brand + model + ", сборка: " + productionCountry + ", " + productionYear + " год, цвет: " + color +
+        return "Car{ " + brand + " " + model + ", сборка: " + productionCountry + ", " + productionYear + " год, цвет: " + color +
                 ", объем двигателя: " + engineVolume + "L }";
     }
 
