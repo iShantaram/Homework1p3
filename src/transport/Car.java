@@ -156,7 +156,11 @@ public class Car {
     }
 
     public boolean isActiveInsurance() {
-        return this.insurance.isActive();
+        if (insurance != null) return this.insurance.isActive();
+        else {
+            System.out.println("Страховка отсутствует. Необходимо оформить страховку!");
+            return false;
+        }
     }
 
     @Override
